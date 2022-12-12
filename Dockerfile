@@ -13,7 +13,7 @@ RUN go mod download && go mod verify
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 8080
 
 RUN go build -o app ./cmd/apiserver/main.go
 
