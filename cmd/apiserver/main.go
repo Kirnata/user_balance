@@ -20,6 +20,7 @@ func main() {
 
 	config := apiserver.NewConfig()
 	_, err := toml.DecodeFile(configPath, config)
+	//fmt.Println(config.BindAddr, "\n", config.LogLevel, "\n", config.Store.DatabaseURL)
 	if err != nil {
 		log.Fatal(err)
 	}

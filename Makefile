@@ -1,7 +1,11 @@
-build:
-	docker build -t app .
+
+rund:
+	docker-compose up -d --build --force-recreate
+
 run:
-	docker run --name app -p 80:8080 app
+	docker-compose up --build --force-recreate
+
+
 stop:
-	docker stop app
+	docker-compose down
 

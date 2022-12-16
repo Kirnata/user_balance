@@ -1,0 +1,34 @@
+version: '3'
+services:
+  pgdb:
+    image: "postgres:14-alpine"
+    container_name: "pgdb"
+    environment:
+      - POSTGRES_DB=pgdb
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pwd123
+      - PGDATA=/var/lib/postgresql/data1/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data1:/var/lib/postgresql/data
+      - ./schema:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d pgdb"]
+  app:
+#    image: golang_container
+    container_name: gc
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - pgdb
+    #    env_file:
+    #      config/config.env
+    #    links - связь контейнеров в сети
+    links:
+      - pgdb

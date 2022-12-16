@@ -1,5 +1,6 @@
 bind_addr = ":8080"
-log_level = "debug"
+log_level = "error"
 
 [store]
-database_url = "mocks"
+database_url = "host = pgdb port = 5432 user=user password=pwd123 dbname=pgdb sslmode=disable"
+#host = “host.docker.internal”

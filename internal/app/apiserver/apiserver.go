@@ -25,7 +25,6 @@ func New(config *Config) *APIServer {
 		config: config,
 		router: mux.NewRouter(),
 		logger: logrus.New(),
-		store:  store.New(config.Store),
 	}
 }
 
@@ -34,7 +33,7 @@ func (s *APIServer) Start() error {
 	if err := s.configureLogger(); err != nil {
 		return err
 	}
-	s.configureRouter()
+	s.configureRouter() // router обрабатывает все входящие запросы и направляет их к нужным обработчикам
 	if err := s.configureStore(); err != nil {
 		return err
 	}
@@ -55,6 +54,13 @@ func (s *APIServer) configureRouter() {
 }
 
 func (s *APIServer) configureStore() error {
+	st := store.New(s.config.Store)
+	if err := st.Open(); err != nil {
+		return err
+	}
+
+	s.store = st
+
 	return nil
 }
 

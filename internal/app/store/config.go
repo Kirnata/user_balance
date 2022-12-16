@@ -1,7 +1,7 @@
 package store
 
 type Config struct {
-	DatabaseURL string `toml:"data_base_url"`
+	DatabaseURL string `toml:"database_url"` // строка подключения к бд
 }
 
 func NewConfig() *Config {
